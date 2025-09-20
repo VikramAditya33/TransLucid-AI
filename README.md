@@ -13,6 +13,14 @@ A Chrome Extension (Manifest V3) that translates selected text into English and 
 - **Secure API Key Storage**: Your Gemini API key is stored securely in Chrome's local storage
 - **Universal Language Support**: Translates from any language to English
 
+## Quick Start
+
+1. **Download** the extension files
+2. **Get API Key** from [Google AI Studio](https://makersuite.google.com/app/apikey)
+3. **Load Extension** in Chrome (Developer mode → Load unpacked)
+4. **Configure** your API key in the extension popup
+5. **Select text** on any webpage and right-click to use!
+
 ## Installation
 
 1. **Get a Google Gemini API Key**:
@@ -21,16 +29,20 @@ A Chrome Extension (Manifest V3) that translates selected text into English and 
    - Copy the key for later use
 
 2. **Install the Extension**:
-   - Open Chrome and navigate to `chrome://extensions/`
-   - Enable "Developer mode" (toggle in the top right)
-   - Click "Load unpacked"
-   - Select the `chrome_translation_tool` directory
-   - The extension icon will appear in your Chrome toolbar
+   - **Download/Clone**: Get the extension files from this repository
+   - **Open Chrome**: Navigate to `chrome://extensions/`
+   - **Enable Developer Mode**: Toggle the "Developer mode" switch in the top right corner
+   - **Load Unpacked**: Click the "Load unpacked" button
+   - **Select Folder**: Choose the folder containing the extension files (should have manifest.json, background.js, etc.)
+   - **Verify Installation**: The "TransLucid AI" extension should appear in your extensions list
+   - **Pin Extension**: Click the puzzle piece icon in Chrome toolbar and pin "TransLucid AI" for easy access
 
 3. **Configure Your API Key**:
-   - Click the extension icon in the toolbar
-   - Enter your Gemini API key in the popup
-   - Click "Save API Key"
+   - **Open Settings**: Click the TransLucid AI extension icon in your Chrome toolbar
+   - **Enter API Key**: Paste your Gemini API key in the "API Key" field
+   - **Select Language**: Choose your preferred target language from the dropdown
+   - **Save Settings**: Click "Save Settings" button
+   - **Verify**: You should see "Settings saved successfully!" message
 
 ## Usage
 
@@ -74,9 +86,18 @@ chrome_translation_tool/
 
 ## Troubleshooting
 
+### Setup Issues
+- **"Load unpacked" button not visible**: Make sure Developer mode is enabled (toggle in top right of chrome://extensions/)
+- **Extension not loading**: Ensure you selected the correct folder containing manifest.json
+- **Extension disappears after restart**: This is normal for unpacked extensions - just reload it from chrome://extensions/
+- **Permission errors**: Make sure you have the latest version of Chrome
+
+### Usage Issues
 - **"Please set your Gemini API key"**: Click the extension icon and enter your API key
 - **Translation fails**: Check your internet connection and verify your API key is valid
 - **Tooltip doesn't appear**: Ensure you've selected text and the page has fully loaded
+- **Chat not working**: Make sure your API key is valid and you have internet connection
+- **Context menu not showing**: Try refreshing the page and selecting text again
 
 ## Development
 
