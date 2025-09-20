@@ -1,11 +1,9 @@
-
 let currentTooltip = null;
 let tooltipTimeout = null;
 let currentChat = null;
 let chatHistory = [];
 let contextText = '';
 let apiKey = '';
-
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'showTranslation') {
@@ -19,19 +17,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-
 function showTranslationTooltip(translatedText) {
-  
   removeTooltip();
-  
-  
   const selection = window.getSelection();
   if (!selection.rangeCount) return;
   
   const range = selection.getRangeAt(0);
   const rect = range.getBoundingClientRect();
-  
-  
   const tooltip = document.createElement('div');
   tooltip.className = 'gemini-translator-tooltip';
   tooltip.innerHTML = `
@@ -41,46 +33,29 @@ function showTranslationTooltip(translatedText) {
     </div>
   `;
   
-  
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-  
   tooltip.style.position = 'absolute';
   tooltip.style.left = `${rect.left + scrollLeft + (rect.width / 2)}px`;
   tooltip.style.top = `${rect.top + scrollTop - 10}px`; 
-  
-  
   document.body.appendChild(tooltip);
   currentTooltip = tooltip;
-  
-  
   setTimeout(() => {
     const tooltipRect = tooltip.getBoundingClientRect();
-    
-    
     if (tooltipRect.left < 0) {
       tooltip.style.left = `${scrollLeft + 10}px`;
     } else if (tooltipRect.right > window.innerWidth) {
       tooltip.style.left = `${scrollLeft + window.innerWidth - tooltipRect.width - 10}px`;
     }
-    
-    
     if (tooltipRect.top < 0) {
       tooltip.style.top = `${rect.bottom + scrollTop + 10}px`;
     }
   }, 0);
-  
-  
   const closeButton = tooltip.querySelector('.gemini-translator-close');
   closeButton.addEventListener('click', removeTooltip);
-  
- 
   document.addEventListener('click', handleOutsideClick);
-  
-  
   document.addEventListener('selectionchange', handleSelectionChange);
 }
-
 
 function showErrorTooltip(message) {
   showTranslationTooltip(`Error: ${message}`);
@@ -88,8 +63,6 @@ function showErrorTooltip(message) {
     currentTooltip.classList.add('gemini-translator-error');
   }
 }
-
-
 function removeTooltip() {
   if (currentTooltip) {
     currentTooltip.remove();
@@ -129,10 +102,7 @@ function escapeHtml(text) {
 
 
 function parseMarkdown(text) {
-  
   let escaped = escapeHtml(text);
-  
-  
   
   escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   escaped = escaped.replace(/__([^_]+)__/g, '<strong>$1</strong>');
@@ -194,12 +164,9 @@ async function openChat(selectedText, providedApiKey) {
   
   document.body.appendChild(chat);
   currentChat = chat;
-  
-  
   const closeButton = chat.querySelector('.ai-chat-close');
   const sendButton = chat.querySelector('.ai-chat-send');
   const input = chat.querySelector('.ai-chat-input');
-  
   closeButton.addEventListener('click', removeChat);
   sendButton.addEventListener('click', sendMessage);
   input.addEventListener('keypress', (e) => {
@@ -222,7 +189,6 @@ async function openChat(selectedText, providedApiKey) {
   }
 }
 
-
 function removeChat() {
   if (currentChat) {
     currentChat.remove();
@@ -232,7 +198,6 @@ function removeChat() {
   contextText = '';
   apiKey = '';
 }
-
 
 function addMessage(role, content, isLoading = false, useTypingAnimation = false) {
   if (!currentChat) return;
@@ -307,14 +272,9 @@ async function sendMessage() {
   const message = input.value.trim();
   
   if (!message) return;
-  
-  
   addMessage('user', message);
   input.value = '';
-  
-  
   addMessage('ai', 'Thinking...', true);
-  
   try {
     const response = await getAIChatResponse(message, contextText, chatHistory, apiKey);
    
@@ -331,8 +291,6 @@ async function sendMessage() {
     addMessage('ai', 'Sorry, I couldn\'t process your request. Please try again.', false, true);
   }
 }
-
-
 function showChatError(message) {
   if (currentChat) {
     addMessage('ai', `Error: ${message}`, false, true);
@@ -341,7 +299,6 @@ function showChatError(message) {
     showErrorTooltip(message);
   }
 }
-
 
 async function getAIExplanation(text, apiKey) {
   const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
