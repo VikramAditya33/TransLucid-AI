@@ -322,7 +322,7 @@ async function sendMessage() {
     const messagesContainer = currentChat.querySelector('#chatMessages');
     const loadingMessage = messagesContainer.querySelector('.ai-chat-loading').parentElement.parentElement;
     loadingMessage.remove();
-    addMessage('ai', response, false, true); // Use typing animation
+    addMessage('ai', response, false, true);
   } catch (error) {
     console.error('Error getting AI response:', error);
     
