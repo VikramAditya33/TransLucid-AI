@@ -1,7 +1,6 @@
 
 let currentTooltip = null;
 let tooltipTimeout = null;
-
 let currentChat = null;
 let chatHistory = [];
 let contextText = '';
