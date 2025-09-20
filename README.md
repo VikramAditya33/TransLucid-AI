@@ -89,5 +89,5 @@ To modify the extension:
 ## Notes
 
 - The extension works on all websites
-- Translations are performed using Google's Gemini Pro model
+- Translations are performed using Google's Gemini free model
 - The tooltip uses a high z-index to appear above all page elements
